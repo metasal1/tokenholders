@@ -36,8 +36,7 @@ export async function POST(request) {
                     balance: accountData.amount.toString(),
                 };
             })
-        // .filter(holder => parseInt(holder.balance) > 0);
-        // .sort((a, b) => BigInt(b.balance) - BigInt(a.balance)); // Sort by balance, highest to lowest
+            .sort((a, b) => b.balance - a.balance); // Sort holders array based on balance property
 
         return NextResponse.json(holders);
     } catch (error) {
