@@ -81,6 +81,7 @@ export default function Home() {
           Clear
         </button>
       </form>
+      <button onClick={() => setMintAddress('ErbakSHZWeLnq1hsqFvNz8FvxSzggrfyNGB6TEGSSgNE')} className="bg-green-500 hover:bg-purple-500 p-1">FABS</button>
       {error && <p className="text-red-500">{error}</p>}
       {holders && (
         <div>
@@ -101,6 +102,7 @@ export default function Home() {
           </ul>
         </div>
       )}
+
       <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
     </main>
   );
