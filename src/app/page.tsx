@@ -81,7 +81,13 @@ export default function Home() {
           Clear
         </button>
       </form>
-      <button onClick={() => setMintAddress('ErbakSHZWeLnq1hsqFvNz8FvxSzggrfyNGB6TEGSSgNE')} className="bg-green-500 hover:bg-purple-500 p-2 ">FABS</button>
+      <div>
+        <button onClick={() => setMintAddress('ErbakSHZWeLnq1hsqFvNz8FvxSzggrfyNGB6TEGSSgNE')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">FABS</button>
+        <button onClick={() => setMintAddress('SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">SEND</button>
+        <button onClick={() => setMintAddress('oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">ORE</button>
+        <button onClick={() => setMintAddress('FUTURETnhzFApq2TiZiNbWLQDXMx4nWNpFtmvTf11pMy')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">FUTURE</button>
+        <button onClick={() => setMintAddress('Ax6TrTpSthzu1RNptH5VBRR53atgvK75fCSV4zQpump')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">CXP</button>
+      </div>
       {error && <p className="text-red-500">{error}</p>}
       {holders && (
         <div>
