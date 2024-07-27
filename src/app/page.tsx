@@ -68,7 +68,7 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded mr-2"
+          className="bg-blue-500 text-white p-2  mr-2"
           disabled={loading}
         >
           {loading ? 'Loading...' : 'Get Holders'}
@@ -76,20 +76,20 @@ export default function Home() {
         <button
           type="button"
           onClick={handleClear}
-          className="bg-red-500 text-white p-2 rounded"
+          className="bg-red-500 text-white p-2 "
         >
           Clear
         </button>
       </form>
-      <button onClick={() => setMintAddress('ErbakSHZWeLnq1hsqFvNz8FvxSzggrfyNGB6TEGSSgNE')} className="bg-green-500 hover:bg-purple-500 p-1">FABS</button>
+      <button onClick={() => setMintAddress('ErbakSHZWeLnq1hsqFvNz8FvxSzggrfyNGB6TEGSSgNE')} className="bg-green-500 hover:bg-purple-500 p-2 ">FABS</button>
       {error && <p className="text-red-500">{error}</p>}
       {holders && (
         <div>
-          <h2 className="text-xl font-semibold mb-2">Token Holders:</h2>
-          <p className="mb-2">Total Holders: {holders.length}</p>
+          <h2 className="text-xl font-semibold mb-2">Token Holders: {holders.length}</h2>
+          <p className="mb-2 italic text-xs">Hodlers: {holders.filter(holder => holder.balance > 0).length} / Zerobois: {holders.filter(holder => holder.balance < 1).length}</p>
           <button
             onClick={handleDownload}
-            className="bg-green-500 text-white p-2 rounded mb-4"
+            className="bg-green-500 text-white p-2  mb-4"
           >
             Download Holders Data
           </button>
