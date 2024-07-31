@@ -87,6 +87,7 @@ export default function Home() {
         <button onClick={() => setMintAddress('oreoN2tQbHXVaZsr3pf66A48miqcBXCDJozganhEJgz')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">ORE</button>
         <button onClick={() => setMintAddress('FUTURETnhzFApq2TiZiNbWLQDXMx4nWNpFtmvTf11pMy')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">FUTURE</button>
         <button onClick={() => setMintAddress('Ax6TrTpSthzu1RNptH5VBRR53atgvK75fCSV4zQpump')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">CXP</button>
+        <button onClick={() => setMintAddress('8dtYmiGyAMahRtj2W9XVqAjJo59dGbCT7yk7AaxPBzLc')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">SHRGMA</button>
       </div>
       {error && <p className="text-red-500">{error}</p>}
       {holders && (
