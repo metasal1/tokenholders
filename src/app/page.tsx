@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 export default function Home() {
   const [mintAddress, setMintAddress] = useState('');
-  const [holders, setHolders] = useState<any[] | null>(null);
+  const [holders, setHolders] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -93,7 +93,14 @@ export default function Home() {
       {holders && (
         <div>
           <h2 className="text-xl font-semibold mb-2">Token Holders: {holders.length}</h2>
-          <p className="mb-2 italic text-xs">Hodlers: {holders.filter(holder => holder.balance > 0).length} / Zerobois: {holders.filter(holder => holder.balance < 1).length}</p>
+          <p className="mb-2 italic text-xs">Total Accounts: {holders.totalAccounts}</p>
+          <p className="mb-2 italic text-xs">Hodlers: {holders.totalHolders}</p>
+          <p className="mb-2 italic text-xs">Zero Bois: {holders.zeroBoys}</p>
+          <p className="mb-2 italic text-xs">Largest: {holders.largestBalance.balance}</p>
+          <p className="mb-2 italic text-xs">Smallest: {holders.smallestNonZeroBalance.balance}</p>
+          <p className="mb-2 italic text-xs">Average: {holders.averageBalance}</p>
+          <p className="mb-2 italic text-xs">Billionaires: {holders.billionairesCount}</p>
+          <p className="mb-2 italic text-xs">Millionaires: {holders.millionairesCount}</p>
           <button
             onClick={handleDownload}
             className="bg-green-500 text-white p-2  mb-4"
@@ -101,7 +108,7 @@ export default function Home() {
             Download Holders Data
           </button>
           <ul className="max-h-96 overflow-y-auto">
-            {holders.map((holder, index) => (
+            {holders.holders.map((holder: any, index: any) => (
               <li key={index} className="mb-1">
                 Address: {holder.address}, Balance: {holder.balance}
               </li>
@@ -109,7 +116,6 @@ export default function Home() {
           </ul>
         </div>
       )}
-
       <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
     </main>
   );
