@@ -1,9 +1,12 @@
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID, AccountLayout } from '@solana/spl-token';
+import { Connection, PublicKey } from '@solana/web3.js';
+import { AccountLayout } from '@solana/spl-token';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
+    const connection = new Connection(process.env.RPC);
     const { mintAddress } = await request.json();
+    const mintAccountInfo = await connection.getAccountInfo(new PublicKey(mintAddress));
+    const programId = mintAccountInfo.owner.toBase58();
 
     const VAULT = new PublicKey("9sKt35vjeAx78uzKCFcW9Uasd6YAg6To4uh46SGg2J3g");
     const RAYDIUM = new PublicKey("J2wv9UJQDnW9PYi93pEEANJGnZXYhKVbkaBPChLUvP2s");
@@ -17,11 +20,10 @@ export async function POST(request) {
     }
 
     try {
-        const connection = new Connection(process.env.RPCM);
         const mint = new PublicKey(mintAddress);
 
         const tokenAccounts = await connection.getProgramAccounts(
-            TOKEN_PROGRAM_ID,
+            new PublicKey(programId),
             {
                 filters: [
                     { dataSize: 165 },
@@ -65,7 +67,7 @@ export async function POST(request) {
         const millionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000n);
         const billionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000000n);
 
-        return NextResponse.json({ mintAddress, billionairesCount: billionaires.length, millionairesCount: millionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
+        return NextResponse.json({ tokenProgram: programId, mintAddress, billionairesCount: billionaires.length, millionairesCount: millionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching token holders' }, { status: 500 });

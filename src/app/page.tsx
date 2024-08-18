@@ -88,6 +88,10 @@ export default function Home() {
         <button onClick={() => setMintAddress('FUTURETnhzFApq2TiZiNbWLQDXMx4nWNpFtmvTf11pMy')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">FUTURE</button>
         <button onClick={() => setMintAddress('Ax6TrTpSthzu1RNptH5VBRR53atgvK75fCSV4zQpump')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">CXP</button>
         <button onClick={() => setMintAddress('8dtYmiGyAMahRtj2W9XVqAjJo59dGbCT7yk7AaxPBzLc')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">SHRGMA</button>
+        <button onClick={() => setMintAddress('CBBTCYTLFmQMKQznzSX4un9zBdnL3Em7PU99ZQ1UWwfv')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">CBBT</button>
+        <button onClick={() => setMintAddress('6Y7LbYB3tfGBG6CSkyssoxdtHb77AEMTRVXe8JUJRwZ7')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">DINO</button>
+        <button onClick={() => setMintAddress('Ds52CDgqdWbTWsua1hgT3AuSSy4FNx2Ezge1br3jQ14a')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">DEAN</button>
+        <button onClick={() => setMintAddress('DEVwHJ57QMPPArD2CyjboMbdWvjEMjXRigYpaUNDTD7o')} className="text-white bg-green-500 hover:bg-purple-500 p-2 ">DWH</button>
       </div>
       {error && <p className="text-red-500">{error}</p>}
       {holders && (
