@@ -5,8 +5,24 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
     const connection = new Connection(process.env.RPC);
     const { mintAddress } = await request.json();
-    const mintAccountInfo = await connection.getAccountInfo(new PublicKey(mintAddress));
-    const programId = mintAccountInfo.owner.toBase58();
+
+    const body = JSON.stringify({
+        "jsonrpc": "2.0",
+        "id": mintAddress,
+        "method": "getAsset",
+        "params": {
+            "id": mintAddress,
+        }
+    })
+
+    const options = { method: 'POST', body }
+    const response = await fetch(process.env.RPC, options)
+    const result = await response.json()
+    const name = result.result.content.metadata.name;
+    const symbol = result.result.token_info.symbol;
+    const supply = result.result.token_info.supply;
+    const decimals = result.result.token_info.decimals;
+    const programId = result.result.token_info.token_program;
 
     const VAULT = new PublicKey("9sKt35vjeAx78uzKCFcW9Uasd6YAg6To4uh46SGg2J3g");
     const RAYDIUM = new PublicKey("J2wv9UJQDnW9PYi93pEEANJGnZXYhKVbkaBPChLUvP2s");
@@ -66,8 +82,7 @@ export async function POST(request) {
         const zeroBoys = holders.length - totalHolders;
         const millionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000n);
         const billionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000000n);
-
-        return NextResponse.json({ tokenProgram: programId, mintAddress, billionairesCount: billionaires.length, millionairesCount: millionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
+        return NextResponse.json({ tokenInfo: { name, mint: mintAddress, supply, symbol, decimals, programId }, billionairesCount: billionaires.length, millionairesCount: millionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching token holders' }, { status: 500 });
