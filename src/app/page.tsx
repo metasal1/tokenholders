@@ -7,7 +7,7 @@ export default function Home() {
   const [holders, setHolders] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -120,7 +120,7 @@ export default function Home() {
           </ul>
         </div>
       )}
-      <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
+      <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link> | {commitSha}</footer>
     </main>
   );
 }
