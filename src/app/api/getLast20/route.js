@@ -18,7 +18,14 @@ export async function GET(request) {
             ))
         )
 
-        return NextResponse.json({ tokens }, { status: 200 });
+        const headers = {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'Surrogate-Control': 'no-store',
+        };
+
+        return NextResponse.json({ tokens }, { status: 200, headers });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching tokens', error }, { status: 500 });
