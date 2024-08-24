@@ -67,7 +67,6 @@ export async function POST(request) {
 
         const largestBalance = filteredHolders[0];
 
-
         const smallestNonZeroBalance = filteredHolders.reduce((min, obj) => {
             const balance = BigInt(obj.balance);
             if (balance === 0n) return min;
@@ -81,8 +80,9 @@ export async function POST(request) {
         const totalHolders = nonZeroBalances.length;
         const zeroBoys = holders.length - totalHolders;
         const millionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000n);
+        const hundredMillionaires = holders.filter(obj => BigInt(obj.balance) >= 100000000000000n);
         const billionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000000n);
-        return NextResponse.json({ tokenInfo: { name, mint: mintAddress, supply, symbol, decimals, programId }, billionairesCount: billionaires.length, millionairesCount: millionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
+        return NextResponse.json({ tokenInfo: { name, mint: mintAddress, supply, symbol, decimals, programId }, billionairesCount: billionaires.length, millionairesCount: millionaires.length, hundredMillionairesCount: hundredMillionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching token holders' }, { status: 500 });
