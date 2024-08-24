@@ -197,6 +197,24 @@ export default function Home() {
           >
             Download Holders CSV
           </button> */}
+            <button
+              onClick={() => window.open(`https://jup.ag/swap/SOL-${mintAddress}?referrer=8bbPc25fviwtBdDNR7dxyznp2qxUTKbxGtsougy9w7de&feeBps=100`)}
+              className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
+            >
+              Buy {holders.tokenInfo.symbol}
+            </button>
+            <button
+              onClick={() => window.open(`https://rugcheck.xyz/tokens/${mintAddress}`)}
+              className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
+            >
+              Rugcheck {holders.tokenInfo.symbol}
+            </button>
+            <button
+              onClick={() => window.open(`https://birdeye.so/token/${mintAddress}`)}
+              className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
+            >
+              Birdeye {holders.tokenInfo.symbol}
+            </button>
             <ul className="max-h-96 overflow-y-auto">
               {holders.holders.map((holder: any, index: any) => (
                 <li key={index} className="mb-1">
