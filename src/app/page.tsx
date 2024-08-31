@@ -115,6 +115,10 @@ export default function Home() {
     return Number(num).toLocaleString();
   }
 
+  const placeDecimal = (num: number) => {
+    return Math.round(Number(num / Math.pow(10, holders.tokenInfo.decimals))).toLocaleString();
+  }
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(function () {
       console.log('Async: Copying to clipboard was successful!');
@@ -173,18 +177,19 @@ export default function Home() {
         holders && (
           <div>
             <h2 className="text-xl font-semibold mb-2">Token: {holders.tokenInfo.name} </h2>
+            <p onClick={() => copyToClipboard(mintAddress)} className="mb-2 italic text-xs cursor-pointer">Mint Address: {mintAddress} ⎙</p>
             <p className="mb-2 italic text-xs">Total Accounts: {formattedNumber(holders.totalAccounts)}</p>
             <p className="mb-2 italic text-xs">Hodlers: {formattedNumber(holders.totalHolders)}</p>
             <p className="mb-2 italic text-xs">Zero Bois: {formattedNumber(holders.zeroBoys)}</p>
-            <p className="mb-2 italic text-xs">Largest: {formattedNumber(holders.largestBalance.balance)}</p>
-            <p className="mb-2 italic text-xs">Smallest: {formattedNumber(holders.smallestNonZeroBalance.balance)}</p>
-            <p className="mb-2 italic text-xs">Average: {formattedNumber(holders.averageBalance)}</p>
+            <p className="mb-2 italic text-xs">Largest: {placeDecimal(holders.largestBalance.balance)}</p>
+            <p className="mb-2 italic text-xs">Smallest: {placeDecimal(holders.smallestNonZeroBalance.balance)}</p>
+            <p className="mb-2 italic text-xs">Average: {placeDecimal(holders.averageBalance)}</p>
             <p className="mb-2 italic text-xs">Billionaires: {formattedNumber(holders.billionairesCount)}</p>
             <p className="mb-2 italic text-xs">100 Millionaires: {formattedNumber(holders.hundredMillionairesCount)}</p>
             <p className="mb-2 italic text-xs">Millionaires: {formattedNumber(holders.millionairesCount)}</p>
-            <p className="mb-2 italic text-xs">Supply: {formattedNumber(holders.tokenInfo.supply)}</p>
+            <p className="mb-2 italic text-xs">Supply: {placeDecimal(holders.tokenInfo.supply)}</p>
             <p className="mb-2 italic text-xs">Decimals: {holders.tokenInfo.decimals}</p>
-            <p className="mb-2 italic text-xs">Program: {holders.tokenInfo.programId}</p>
+            <p onClick={() => copyToClipboard(mintAddress)} className="mb-2 italic text-xs cursor-pointer">Program: {holders.tokenInfo.programId} ⎙</p>
             <button
               onClick={handleDownload}
               className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"

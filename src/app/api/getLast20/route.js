@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js'
 
+export const revalidate = 0
+
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
 export async function GET(request) {
@@ -18,14 +20,7 @@ export async function GET(request) {
             ))
         )
 
-        const headers = {
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-            'Surrogate-Control': 'no-store',
-        };
-
-        return NextResponse.json({ tokens }, { status: 200, headers });
+        return NextResponse.json({ tokens }, { status: 200 });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching tokens', error }, { status: 500 });
