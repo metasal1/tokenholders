@@ -2,6 +2,8 @@ import { Connection, PublicKey } from '@solana/web3.js';
 import { AccountLayout } from '@solana/spl-token';
 import { NextResponse } from 'next/server';
 
+export const maxDuration = 300;
+
 export async function POST(request) {
     const connection = new Connection(process.env.RPC);
     const { mintAddress } = await request.json();

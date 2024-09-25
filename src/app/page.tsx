@@ -230,7 +230,7 @@ export default function Home() {
           </div>
         )
       }
-      <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link> | {commitSha}</footer>
+      <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
     </main >
   );
 }
