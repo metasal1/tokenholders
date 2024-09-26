@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 export const maxDuration = 300;
 
 export async function POST(request) {
+    const startTime = Date.now();
     const connection = new Connection(process.env.RPC);
     const { mintAddress } = await request.json();
 
@@ -84,7 +85,26 @@ export async function POST(request) {
         const millionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000n);
         const hundredMillionaires = holders.filter(obj => BigInt(obj.balance) >= 100000000000000n);
         const billionaires = holders.filter(obj => BigInt(obj.balance) >= 1000000000000000n);
-        return NextResponse.json({ tokenInfo: { name, mint: mintAddress, supply, symbol, decimals, programId }, billionairesCount: billionaires.length, millionairesCount: millionaires.length, hundredMillionairesCount: hundredMillionaires.length, totalAccounts, totalHolders, zeroBoys, largestBalance, smallestNonZeroBalance, averageBalance, holders, billionaires, millionaires });
+
+        const endTime = Date.now();
+        const timeTaken = (endTime - startTime) / 1000; // Convert to seconds
+
+        return NextResponse.json({
+            tokenInfo: { name, mint: mintAddress, supply, symbol, decimals, programId },
+            billionairesCount: billionaires.length,
+            millionairesCount: millionaires.length,
+            hundredMillionairesCount: hundredMillionaires.length,
+            totalAccounts,
+            totalHolders,
+            zeroBoys,
+            largestBalance,
+            smallestNonZeroBalance,
+            averageBalance,
+            holders,
+            billionaires,
+            millionaires,
+            timeTaken // Add this line
+        });
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ message: 'Error fetching token holders' }, { status: 500 });

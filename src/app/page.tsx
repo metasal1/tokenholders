@@ -11,6 +11,9 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [tokens, setTokens] = useState<any[]>([])
   const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
+  const [loadingTime, setLoadingTime] = useState(0);
+  const [loadingInterval, setLoadingInterval] = useState<NodeJS.Timeout | null>(null);
+  const [timeTaken, setTimeTaken] = useState<number | null>(null);
 
   useEffect(() => {
     getTokens();
@@ -65,6 +68,13 @@ export default function Home() {
     setLoading(true);
     setError(null);
     setHolders(null);
+    setLoadingTime(0);
+    setTimeTaken(null);
+
+    const interval = setInterval(() => {
+      setLoadingTime((prevTime) => prevTime + 1);
+    }, 1000);
+    setLoadingInterval(interval);
 
     try {
       const response = await fetch('/api/getTokenHolders', {
@@ -85,10 +95,14 @@ export default function Home() {
       const address = mintAddress;
       addToken(name, address, symbol);
       setHolders(data);
+      setTimeTaken(data.timeTaken);
     } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
+      if (loadingInterval) {
+        clearInterval(loadingInterval);
+      }
     }
   };
 
@@ -109,6 +123,10 @@ export default function Home() {
     setMintAddress('');
     setHolders(null);
     setError(null);
+    setLoadingTime(0);
+    if (loadingInterval) {
+      clearInterval(loadingInterval);
+    }
   };
 
   const formattedNumber = (num: number) => {
@@ -145,7 +163,7 @@ export default function Home() {
           className="bg-blue-500 text-white p-2  mr-2"
           disabled={loading}
         >
-          {loading ? 'Loading...' : 'Get Holders'}
+          {loading ? `Loading... (${loadingTime}s)` : 'Get Holders'}
         </button>
         <button
           type="button"
@@ -155,6 +173,12 @@ export default function Home() {
           Clear
         </button>
       </form>
+
+      {timeTaken !== null && (
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+          <p className="font-bold">Request completed in {timeTaken.toFixed(2)} seconds</p>
+        </div>
+      )}
 
       {tokens && tokens.length > 0 && (
         // loop through tokens
@@ -177,6 +201,9 @@ export default function Home() {
         holders && (
           <div>
             <h2 className="text-xl font-semibold mb-2">Token: {holders.tokenInfo.name} </h2>
+            {timeTaken !== null && (
+              <p className="mb-2 italic text-xs">Time taken: {timeTaken.toFixed(2)} seconds</p>
+            )}
             <p onClick={() => copyToClipboard(mintAddress)} className="mb-2 italic text-xs cursor-pointer">Mint Address: {mintAddress} ⎙</p>
             <p className="mb-2 italic text-xs">Total Accounts: {formattedNumber(holders.totalAccounts)}</p>
             <p className="mb-2 italic text-xs">Hodlers: {formattedNumber(holders.totalHolders)}</p>
