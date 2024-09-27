@@ -3,6 +3,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+interface TagCount {
+  tag: string;
+  count: number;
+}
+
+// Add this new component at the top of your file, outside the main component
+const Loader = () => (
+  <div className="flex justify-center items-center py-4">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+  </div>
+);
+
 export default function Home() {
 
   const [mintAddress, setMintAddress] = useState('');
@@ -14,6 +26,17 @@ export default function Home() {
   const [loadingTime, setLoadingTime] = useState(0);
   const [loadingInterval, setLoadingInterval] = useState<NodeJS.Timeout | null>(null);
   const [timeTaken, setTimeTaken] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [tags, setTags] = useState<TagCount[]>([]);
+  const [totalTokens, setTotalTokens] = useState<number>(0);
+  const [loadingTags, setLoadingTags] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [tagTokens, setTagTokens] = useState<any[]>([]);
+  const [loadingTagTokens, setLoadingTagTokens] = useState(false);
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     getTokens();
@@ -145,18 +168,123 @@ export default function Home() {
     });
   }
 
+  const handleSearch = async () => {
+    if (!searchQuery) return;
+
+    setSearchLoading(true);
+    try {
+      const response = await fetch(`/api/findToken?query=${encodeURIComponent(searchQuery)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to search tokens');
+      }
+
+      const data = await response.json();
+      setSearchResults(data.tokens);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    setSearchResults([]);
+  };
+
+  const handleSearchInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleGetTags = async () => {
+    setLoadingTags(true);
+    try {
+      const response = await fetch('/api/findToken?getTags=true', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch tags');
+      }
+
+      const data = await response.json();
+      setTags(data.tags);
+      setTotalTokens(data.totalTokens);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoadingTags(false);
+    }
+  };
+
+  const handleTagClick = async (tag: string) => {
+    setSelectedTag(tag);
+    setLoadingTagTokens(true);
+    setSortColumn(null);
+    setSortDirection('asc');
+    try {
+      const response = await fetch(`/api/findToken?tag=${encodeURIComponent(tag)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch tokens for tag');
+      }
+
+      const data = await response.json();
+      setTagTokens(data.tokens);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoadingTagTokens(false);
+    }
+  };
+
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedTagTokens = tagTokens.sort((a, b) => {
+    if (sortColumn) {
+      if (a[sortColumn] < b[sortColumn]) return sortDirection === 'asc' ? -1 : 1;
+      if (a[sortColumn] > b[sortColumn]) return sortDirection === 'asc' ? 1 : -1;
+    }
+    return 0;
+  });
+
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Solana Token Holders</h1>
       {/* dont allow submit if field empty */}
       <form onSubmit={handleSubmit} className="mb-4">
+
         <input
           type="text"
           value={mintAddress}
           onChange={(e) => setMintAddress(e.target.value)}
           placeholder="Enter token mint address"
-          className="border p-2 mr-2"
+          className="border p-2 mr-2 flex-grow"
           required
+
         />
         <button
           type="submit"
@@ -257,6 +385,134 @@ export default function Home() {
           </div>
         )
       }
+
+      {/* Add this new section for token search */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-2">Search Tokens</h2>
+        <div className="flex mb-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleSearchInputKeyPress}
+            placeholder="Enter token name or symbol"
+            className="border p-2 mr-2 flex-grow"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-blue-500 text-white p-2 mr-2"
+            disabled={searchLoading}
+          >
+            {searchLoading ? 'Searching...' : 'Search'}
+          </button>
+          <button
+            onClick={handleClearSearch}
+            className="bg-red-500 text-white p-2"
+          >
+            Clear
+          </button>
+        </div>
+        {searchResults.length > 0 && (
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Search Results</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              {searchResults.map((token, index) => (
+                <button
+                  key={index}
+                  onClick={() => setMintAddress(token.address)}
+                  className="has-tooltip text-white bg-green-500 hover:bg-purple-500 p-2"
+                >
+                  {token.symbol}
+                  <span className='tooltip p-1 rounded bg-red-500 sm:bg-yellow-400 md:bg-blue-500 lg:bg-green-700 -mt-8'>
+                    {token.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Add this new section for fetching tags */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-2">Token Tags</h2>
+        <button
+          onClick={handleGetTags}
+          className="bg-blue-500 text-white p-2 mb-4"
+          disabled={loadingTags}
+        >
+          {loadingTags ? 'Loading Tags...' : 'Get All Tags'}
+        </button>
+        {tags.length > 0 && (
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Available Tags</h3>
+            <p className="mb-2">Total Tokens: {totalTokens.toLocaleString()}</p>
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tagCount, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleTagClick(tagCount.tag)}
+                  className={`bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold ${selectedTag === tagCount.tag ? 'bg-blue-500 text-white' : 'text-gray-700'
+                    }`}
+                >
+                  {tagCount.tag} ({tagCount.count})
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        {selectedTag && (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold mb-2 text-white">Tokens with tag: {selectedTag}</h3>
+            {loadingTagTokens ? (
+              <Loader />
+            ) : tagTokens.length > 0 ? (
+              <div className="overflow-x-auto rounded-lg shadow-md">
+                <table className="min-w-full">
+                  <thead className="bg-gray-900">
+                    <tr>
+                      {['symbol', 'name', 'address'].map((column) => (
+                        <th
+                          key={column}
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer"
+                          onClick={() => handleSort(column)}
+                        >
+                          {column.charAt(0).toUpperCase() + column.slice(1)}
+                          {sortColumn === column && (
+                            <span className="ml-1">
+                              {sortDirection === 'asc' ? '▲' : '▼'}
+                            </span>
+                          )}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-black divide-y divide-gray-800">
+                    {sortedTagTokens.map((token, index) => (
+                      <tr key={index} className="hover:bg-gray-900 transition-colors duration-200">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">{token.symbol}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{token.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <button
+                            onClick={() => setMintAddress(token.address)}
+                            className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
+                          >
+                            {token.address.slice(0, 8)}...{token.address.slice(-8)}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-gray-300">No tokens found for this tag.</p>
+            )}
+          </div>
+        )}
+      </div>
+
       <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
     </main >
   );

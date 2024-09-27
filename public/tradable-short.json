@@ -1,0 +1,231 @@
+[
+    {
+        "address": "C62kfXh5gDDBBS1vovz4Z17JDf2jPUKaXP6dB39YCoBS",
+        "name": "mFROGGERS",
+        "symbol": "mFROG",
+        "decimals": 6,
+        "logoURI": "https://ipfs.io/ipfs/QmebmNS68R5NiLs7fvGTjmWtPq6Eyfby81VmEbWcSh3ZPX",
+        "tags": [
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-09-27T00:26:33.388577Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": null,
+        "extensions": {}
+    },
+    {
+        "address": "8TmBVBaDyp3hU4b8m14DXETagmr4sjTeTVcXrx9zpump",
+        "name": "Justin Waller",
+        "symbol": "JWaller",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/QmWUmdLqKdgobEA8MM59RkUUxawQZMD6eERcTkcxKhEWsD",
+        "tags": [
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-08T20:13:17.550409Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-07T15:39:06Z",
+        "extensions": {}
+    },
+    {
+        "address": "6UJuUGbzoRhbn6iRSZHvoNg6e7H5TWJ2BPVSiMydpump",
+        "name": "Lunatheminicockapoo",
+        "symbol": "Luna",
+        "decimals": 6,
+        "logoURI": null,
+        "tags": [
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-09-27T06:01:23.205671Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": null,
+        "extensions": {}
+    },
+    {
+        "address": "2ZmkQna3ZsmAthWtzeGJGRBUq6QziX7YjrzhxX2Gpump",
+        "name": "Hotter",
+        "symbol": "Hotter",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/QmZMZ5Cut3jA5jpThemgG4gMDDsB4y3JJXTkPPo66SMiis",
+        "tags": [
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-09T21:12:50.431934Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-09T20:59:20Z",
+        "extensions": {}
+    },
+    {
+        "address": "1e2MhJkMbuFT2RiHjvWohq5pMUHDjPBBMQi3YkApump",
+        "name": "MONG TATE",
+        "symbol": "MONG",
+        "decimals": 6,
+        "logoURI": "https://gateway.irys.xyz/pDpLwwoLtDdVHTPoOVyhwMKowAo_CSVj7WOeMRNfW0k",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-14T16:12:52.983420Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-14T16:08:50Z",
+        "extensions": {}
+    },
+    {
+        "address": "4YmFPRMtQbJew53TwyXxjkiw55urqzbw6Xqaz9y7pump",
+        "name": "TradWife",
+        "symbol": "TradWife",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/QmccEzZU98J7JmhxgyhjKJ3eNDBYcpvATuSs3ZidD5StXX",
+        "tags": [
+            "unknown",
+            "pump"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-08-15T04:18:45.795442Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-08-15T04:18:41Z",
+        "extensions": {}
+    },
+    {
+        "address": "5geiKdzDnoZcAEYgGF4AA44FLJXLLQT2F9txi1vpump",
+        "name": "Waka Flocka Flame",
+        "symbol": "BIGFLOCKA",
+        "decimals": 6,
+        "logoURI": "https://gateway.irys.xyz/Z40l6uIVIJ03B2AcnlQ5WNoQlws9LrYZIMSReelfJFA",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-15T13:49:01.187636Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-15T13:44:00Z",
+        "extensions": {}
+    },
+    {
+        "address": "J88h2CwijF3X9zhd1UPnJn4hrkxsV7B6JtXSoyQNpump",
+        "name": "Marcell's Dog",
+        "symbol": "RETARD",
+        "decimals": 6,
+        "logoURI": null,
+        "tags": [
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-09-27T15:01:19.657767Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": null,
+        "extensions": {}
+    },
+    {
+        "address": "HsZ94hEGV6DkDmLeXkQk2QAP6Es9oUXaspBTaVcPpump",
+        "name": "Papery",
+        "symbol": "$PAPERY",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/Qmbc8C2tPU49Gqw4WLrowKt24nuBuo1yfE9uvddLnFCnBD",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-07-10T06:13:52.608886Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-07-10T06:00:26Z",
+        "extensions": {}
+    },
+    {
+        "address": "Au8k6AdvmRByhvwhgsKR61Jv4dMghSkVC6pGnHn6pump",
+        "name": "Cat in a sea of creatures",
+        "symbol": "FINO",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/QmScikqZRD36Ph7UvmfouJEgnuCRgrK1g9LXkTFcVD5vwS",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-17T20:14:28.105204Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-17T20:07:30Z",
+        "extensions": {}
+    },
+    {
+        "address": "13mxNXVzhXTKjCVWr7ZsdEA4P822LFkANfrJdjbnpump",
+        "name": "FROG TRUMP",
+        "symbol": "FROGTRUMP",
+        "decimals": 6,
+        "logoURI": "https://gateway.irys.xyz/jHWw2S-cTmVAuRvCNB98xV1W6YAO4J1lYDPUZ-iPby4",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-06-21T04:59:12.845278Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-06-21T04:56:04Z",
+        "extensions": {}
+    },
+    {
+        "address": "8Hod6nJ4wKrzjrEx7HbNqcSTp9MrzyJVgCfsHkBJATGo",
+        "name": "Condom Fish",
+        "symbol": "CF",
+        "decimals": 6,
+        "logoURI": "https://ipfs.io/ipfs/QmazfYq1tsGzNhUazetDVi5bHRXvtaFntbpBm5uUQ5Hnkq",
+        "tags": [
+            "unknown",
+            "pump"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-09-07T20:14:19.433810Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-09-07T20:14:16Z",
+        "extensions": {}
+    },
+    {
+        "address": "5FCnf4M1L8ND3ojP9eFCb8emXRtySFWQ9dFX9wBSpump",
+        "name": "bill",
+        "symbol": "bill",
+        "decimals": 6,
+        "logoURI": "https://image-cdn.solana.fm/images/?imageUrl=https://cf-ipfs.com/ipfs/QmSVaAWpJfaosAEXyD9ok6f5d3oKaDwVkhh7TarqhtqWT8",
+        "tags": [
+            "pump",
+            "unknown"
+        ],
+        "daily_volume": null,
+        "created_at": "2024-08-15T08:23:34.229747Z",
+        "freeze_authority": null,
+        "mint_authority": null,
+        "permanent_delegate": null,
+        "minted_at": "2024-08-15T08:23:31Z",
+        "extensions": {}
+    }
+]
