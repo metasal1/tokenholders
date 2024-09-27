@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const maxDuration = 300;
+
+
 interface Token {
     address: string;
     name: string;
