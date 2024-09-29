@@ -148,6 +148,27 @@ export default function Home() {
     linkElement.click();
   };
 
+  const handleDownloadCSV = () => {
+    if (!holders) return;
+
+    const csvContent = [
+      ['Address', 'Balance'],
+      ...holders.holders.map((holder: any) => [holder.address, holder.balance])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `token_holders_${mintAddress}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   const handleClear = () => {
     setMintAddress('');
     setHolders(null);
@@ -291,8 +312,10 @@ export default function Home() {
   };
 
   const handleHoldersMintPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault(); // Prevent the default paste behavior
     const pastedText = e.clipboardData.getData('text');
     setHoldersMint(pastedText);
+    setMintAddress(pastedText); // Update mintAddress state as well
     toast.success('Mint address pasted!', {
       position: "top-right",
       autoClose: 3000,
@@ -350,7 +373,10 @@ export default function Home() {
         <input
           type="text"
           value={holdersMint}
-          onChange={(e) => setHoldersMint(e.target.value)}
+          onChange={(e) => {
+            setHoldersMint(e.target.value);
+            setMintAddress(e.target.value); // Update mintAddress state as well
+          }}
           onPaste={handleHoldersMintPaste}
           placeholder="Enter mint address to get holders"
           className="w-full p-2 border rounded"
@@ -421,12 +447,12 @@ export default function Home() {
                 >
                   Download Holders JSON
                 </button>
-                {/* <button
-                onClick={handleDownload}
-                className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
-              >
-                Download Holders CSV
-              </button> */}
+                <button
+                  onClick={handleDownloadCSV}
+                  className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
+                >
+                  Download Holders CSV
+                </button>
                 <button
                   onClick={() => window.open(`https://jup.ag/swap/SOL-${mintAddress}?referrer=8bbPc25fviwtBdDNR7dxyznp2qxUTKbxGtsougy9w7de&feeBps=100`)}
                   className="bg-green-500 text-white p-2 mb-4 hover:bg-purple-500 m-2"
@@ -643,7 +669,16 @@ export default function Home() {
         )}
       </div>
 
-      <footer className="text-xs p-5">Made by <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal</Link></footer>
+      <footer className="text-xs p-5">
+        Made by
+        <Link className="text-red-500" target="_blank" href={"https://www.metasal.xyz"}>@metasal </Link>
+        | Token Address:
+        <Link className="text-red-500" target="_blank" href={"https://jup.ag/swap/SOL-2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn?referrer=8bbPc25fviwtBdDNR7dxyznp2qxUTKbxGtsougy9w7de&feeBps=100"}>2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn </Link>
+        | Birdeye:
+        <Link className="text-red-500" target="_blank" href={"https://birdeye.so/token/2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn?chain=solana"}>🔗 </Link>
+        | Jup:
+        <Link className="text-red-500" target="_blank" href={"https://jup.ag/swap/SOL-2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn"}>🔗</Link>
+      </footer>
       <ToastContainer />
     </main >
   );
