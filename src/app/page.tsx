@@ -678,6 +678,8 @@ export default function Home() {
         <Link className="text-red-500" target="_blank" href={"https://birdeye.so/token/2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn?chain=solana"}>🔗 </Link>
         | Jup:
         <Link className="text-red-500" target="_blank" href={"https://jup.ag/swap/SOL-2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn"}>🔗</Link>
+        | Fomo3D:
+        <Link className="text-red-500" target="_blank" href={"https://fomo3d.fun/2QAZw9z9yeg4vufktEcJyn4W3TRA36vf2FhzfbR1zDTn"}>🔗</Link>
       </footer>
       <ToastContainer />
     </main >
